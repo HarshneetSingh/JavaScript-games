@@ -1,0 +1,51 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <h2>Game 1 </h2>
+        <ul>
+            <li>rock</li>
+            <li>paper</li>
+            <li>scissor</li>
+        </ul>
+          
+    </nav>
+    <main>
+            <div class="selection">
+                <button class="btn " data-id="rock">rock</button>
+                <button class="btn " data-id="paper">paper</button>
+                <button class="btn " data-id="scissor">scissor</button>
+
+            </div>
+            <div class="displaying">
+                <div class="user-img">
+                    SELECT TO START <!--<img src="/RPS-GAME.IMG/left_ppr-removebg-preview.png" alt=""> -->
+
+                </div>
+                <div class="computer-img">
+                    <!-- <img src="/RPS-GAME.IMG/right_ppr-removebg-preview.png" alt=""> -->
+
+                </div>
+            </div>
+            <div class="result">
+                <div>Result : <span class="curr-result">select to start the game</span></div>
+                <div class="record">
+                    <P>WON =<span id="ttl-won"> 0</span></P>
+                    <P>LOSS =<span id="ttl-lose"> 0</span></P>
+                   <P>DRAW = <span id="ttl-draw"> 0</span></P>
+                </div>
+
+
+            </div>
+
+
+    </main>
+</body>
+<script src="game.js"></script>
+</html>
