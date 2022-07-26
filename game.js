@@ -71,11 +71,11 @@ function userImgLoader(arr, target) {
         return img;
     })
 
-    return userImg.innerHTML = `<img src="${targetUserItem}" alt="">`;
+    return userImg.innerHTML = `<img src="/rock ppr scissor/${targetUserItem}" alt="">`;
 
 }
 function randomCompImg(randomImg) {
-    return computerImg.innerHTML = `<img src="${randomImg.img}" alt="">`
+    return computerImg.innerHTML = `<img src="/rock ppr scissor/${randomImg.img}" alt="">`
 };
 
 
