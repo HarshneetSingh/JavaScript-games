@@ -374,17 +374,17 @@ main {
     }
 }
 .score-board-container{  
-    height: 150px;
+    max-height: 130px;
     text-align: center;
     position:sticky;
     bottom:  65%;
     width:14vw;
-    
+    padding-bottom: 2rem;
     left: 82%;
-    border-bottom-left-radius: 30%;
-    border-bottom-right-radius: 30%;
+    border-bottom-left-radius: 25%;
+    border-bottom-right-radius: 25%;
     box-shadow: 1px 1px 10px rgb(0, 0, 0);
-
+overflow: hidden;
   background-color: rgb(75, 93, 58);
 }
 .nav-board{

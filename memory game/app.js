@@ -83,8 +83,8 @@ const scoreTaken = document.querySelector(".score-taken");
 // *************   score board elements ****************************
 const scoreStore = document.querySelector(".num");
 const timeStore = document.querySelector(".tt");
-
-// window.addEventListener('DOMContentLoaded', storing)
+const scoreboardContainer = document.querySelector('.score-board-container');
+window.addEventListener('DOMContentLoaded', storingOnLoad)
 
 // ****event listener for start btn  ********************************
 startbtn.addEventListener("click", () => {
@@ -93,7 +93,7 @@ startbtn.addEventListener("click", () => {
   gridMaker();
   scoreTimeDiv.style.display = "inline-block";
   interval = setInterval(getTime, 10);
-
+  scoreboardContainer.style.display = "none";
 });
 // **************grid maker************
 function gridMaker() {
@@ -171,7 +171,10 @@ function getScore(img) {
 
       gameWon(highestTime.innerHTML);
       // * storing in scoreboard and in local storage
-      storing(highestTime.innerHTML);
+
+      scoreboardContainer.style.display = "block";
+
+      storingAfterGameWon(highestTime.innerHTML);
     }
   }
 
@@ -243,12 +246,56 @@ function gameWon(highestTime) {
   playAgainButton.addEventListener('click', () => location.reload())
   main.appendChild(playAgainButton);
 }
-// ********storing the result in local storae****
-function storing(highestTime) {
-  const resultArr = storingChecking(highestTime);
-  console.log(resultArr);
-  const table = document.querySelector('.table');
+// ********CHECKING LOCAL STORAGE ****************
+function storingChecking() {
+  let local;
 
+  if (localStorage.getItem('result')) {
+    local = JSON.parse(localStorage.getItem('result'));
+  }
+  else {
+    local = [];
+  }
+
+  return local;
+}
+// ********storing the result in local storae****
+function storingAfterGameWon(highestTime) {
+  const resultArr = storingChecking();
+  resultArr.push(highestTime);
+  localStorage.setItem('result', JSON.stringify(resultArr))
+  resultArr.sort();
+  // *creating Element for scoreboard
+  const table = document.querySelector('.table');
+  const tableRow = document.createElement('tr');
+  const tableData = document.createElement('td');
+  const tableData2 = document.createElement('td');
+
+  tableRow.className = "score-board";
+
+  // *adding textContent for the scoreboard
+  tableData.textContent = `${resultArr.length}`;
+  if (highestTime < resultArr.slice(-1)) {
+    resultArr.sort();
+
+    tableData2.textContent = `${highestTime}`;
+  } else {
+    tableData2.textContent = `${resultArr.slice(-1)}`;
+
+  }
+
+
+  table.appendChild(tableRow);
+  tableRow.appendChild(tableData);
+  tableRow.appendChild(tableData2);
+
+}
+// *******storaing on loading *******
+function storingOnLoad() {
+  const resultArr = storingChecking();
+  localStorage.setItem('result', JSON.stringify(resultArr))
+  const table = document.querySelector('.table');
+  resultArr.sort();
   for (let index = 0; index < resultArr.length; index++) {
     const tableRow = document.createElement('tr');
     const tableData = document.createElement('td');
@@ -257,9 +304,6 @@ function storing(highestTime) {
     tableRow.className = "score-board";
     tableData.textContent = `${index + 1}`;
 
-
-    // console.log(JSON.parse(localStorage.getItem(resultArr[index])));
-
     tableData2.textContent = `${resultArr[index]}`;
 
     table.appendChild(tableRow);
@@ -267,19 +311,4 @@ function storing(highestTime) {
     tableRow.appendChild(tableData2);
 
   }
-}
-// ********CHECKING LOCAL STORAGE ****************
-function storingChecking(highestTime) {
-  let local = [];
-  if (localStorage.getItem('result')) {
-    localStorage.setItem('result', highestTime);
-
-    local.push(JSON.parse(localStorage.getItem('result')));
-  }
-  else {
-    local.push(highestTime);
-    localStorage.setItem('result', JSON.stringify(highestTime))
-  }
-  console.log(local)
-  return local;
 }
