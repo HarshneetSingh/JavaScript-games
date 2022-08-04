@@ -15,19 +15,20 @@ let scoreArr = [];
 
 
 // ********window reloading*******8
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", highestScoreBoardShow)
+function highestScoreBoardShow() {
     // * addding highest score to the game
     const highestscore = document.createElement('div');
     const localarr = JSON.parse(localStorage.getItem('result'));
-
     // *bringing local storage 
     if (!null) {
-        localarr.sort();
+        localarr.sort().reverse();
+
         highestscore.className = "highest-score";
         highestscore.innerHTML = `<h2 style="font-style: italic">Highest score: <span class="highest-span-score" style="color:white;">${localarr[0]}</span></h2>`;
         main.appendChild(highestscore)
     }
-})
+}
 // ********startgame***********
 function startGame() {
     // *removing game start contnet
@@ -116,7 +117,7 @@ function scoreTime() {
 // **********interval*******
 function interval() {
 
-    randomMoleInterval = setInterval(randomMole, 300);
+    randomMoleInterval = setInterval(randomMole, 500);
     remaintime = setInterval(timeCountdown, 1000);
 
 }
@@ -243,11 +244,25 @@ function result(score) {
         const removeScores = document.querySelectorAll('.tr2');
         removeScores.forEach((scores) => {
             resultBoard.removeChild(scores)
-
+            const highestscoree= document.querySelector('highest-score')
+            main.removeChild(highestscoree)
         })
         localStorage.clear();
     })
     result.appendChild(clearBoard);
+
+    // showing highest score
+    const highestScoree = document.querySelector('highest-score');
+    if (!main.contains(highestScoree)) {
+        highestScoreBoardShow();
+     
+    }else{
+        const highestSpanScore= document.querySelector('highest-span-score');
+    const localarr = JSON.parse(localStorage.getItem('result'));
+    localarr.sort().reverse();
+
+        highestSpanScore.textContent=`${localarr[0]}`
+    }
 }
 // *********setting local storage **********
 function checkingLocalStorage() {
