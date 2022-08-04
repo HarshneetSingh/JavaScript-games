@@ -1,8 +1,7 @@
 // *********elements****************
-
 const gameStart = document.querySelector('.game-start');
 const main = document.querySelector('main');
-const startGame= document.querySelector('.start-btn');
+const startGamebtn = document.querySelector('.start-btn');
 // ************** elements for time ****************
 let remainingTime = 10;
 let randomMoleInterval;
@@ -11,7 +10,26 @@ let remaintime;
 // **************elements for score****************
 let score = 0;
 let hitPositionId = null;
-startGame.addEventListener("click", ()=> {
+startGamebtn.addEventListener("click", startGame)
+let scoreArr = [];
+
+
+// ********window reloading*******8
+window.addEventListener("DOMContentLoaded", () => {
+    // * addding highest score to the game
+    const highestscore = document.createElement('div');
+    const localarr = JSON.parse(localStorage.getItem('result'));
+
+    // *bringing local storage 
+    if (!null) {
+        localarr.sort();
+        highestscore.className = "highest-score";
+        highestscore.innerHTML = `<h2 style="font-style: italic">Highest score: <span class="highest-span-score" style="color:white;">${localarr[0]}</span></h2>`;
+        main.appendChild(highestscore)
+    }
+})
+// ********startgame***********
+function startGame() {
     // *removing game start contnet
 
     gameStart.style.display = "none";
@@ -19,9 +37,9 @@ startGame.addEventListener("click", ()=> {
     // *adding curvedShape design 
 
     const curvedShape = document.createElement('div');
-    curvedShape.classList.add("curved-shape");
 
-    main.appendChild(curvedShape);
+    curvedShape.className = "curved-shape";
+    main.appendChild(curvedShape)
 
     // *adding score and time
 
@@ -29,7 +47,7 @@ startGame.addEventListener("click", ()=> {
 
     // *adding grid
 
-    gridMaker(12);
+    gridMaker(12)
 
     // *adding information about the game and the start buttonBounce
     const gameInfo = document.createElement('div');
@@ -49,17 +67,10 @@ startGame.addEventListener("click", ()=> {
     randomly within the hole.
     Catching them will get you +1 :)</p>`;
     gameInfo.appendChild(playBtnFromDom);
-    main.appendChild(gameInfo);
-
+    main.appendChild(gameInfo)
 
 
 }
-)
-
-
-
-
-
 // ********* grid maker ********
 function gridMaker(num) {
     const gridMaker = document.createElement('div');
@@ -84,6 +95,7 @@ function gridMaker(num) {
     }
     main.appendChild(gridMaker);
 }
+// *******setting score and time*****
 function scoreTime() {
     // setting score and time container
     const scoreTimeDiv = document.createElement('div');
@@ -101,15 +113,14 @@ function scoreTime() {
     scoreTimeDiv.appendChild(time);
     main.appendChild(scoreTimeDiv);
 }
-
-
-
+// **********interval*******
 function interval() {
 
-    randomMoleInterval = setInterval(randomMole, 1000);
+    randomMoleInterval = setInterval(randomMole, 300);
     remaintime = setInterval(timeCountdown, 1000);
 
 }
+// *****interval random mole *********
 function randomMole() {
     // *bringing grid items node list for first removing existing backgrounf bug then adding a new bug 
     const gridNode = document.querySelectorAll('.grid-item')
@@ -124,6 +135,7 @@ function randomMole() {
 
     console.log(mole);
 }
+// *****interval timeCountDown*********
 function timeCountdown() {
     const timeInnerContent = document.querySelector('.span-time')
 
@@ -142,22 +154,26 @@ function timeCountdown() {
         curvedShape.style.animation = "curvedRemoved 0.5s ease-in-out 1";
         curvedShape.style.top = "1500px";
 
+        setTimeout(() => { main.removeChild(curvedShape) }, 1000);
+
         // removed the grid and time shit
         const endGrid = document.querySelector('.grid');
         const endScoreTime = document.querySelector('.score-time');
         main.removeChild(endGrid);
-        endScoreTime.style.display = "none";
+        main.removeChild(endScoreTime);
 
-        // adding result function
-        const scoreResult = document.querySelector('.span-score');
-        console.log(scoreResult);
-        console.log(scoreResult.innerHTML);
-        result(scoreResult.innerHTML)
-        // remainingTime = 60
+
+        result(score)
+        score = 0;
+        remainingTime = 10;
     }
 
 }
+// ******** displaying result **********
 function result(score) {
+    let localStorageAvailable = checkingLocalStorage();
+    localStorageAvailable.push(score);
+    localStorage.setItem('result', JSON.stringify(localStorageAvailable));
     // *adding result 
 
     // adding result section 
@@ -180,30 +196,31 @@ function result(score) {
     resultCell2.classList.add('cell2');
     resultCell2.innerHTML = `Score`
 
-
-    // added result td of child trs
-
-    const resultRow2 = document.createElement('tr');
-    resultRow2.classList.add('tr2')
-
-    const resultCell3 = document.createElement('td');
-    resultCell3.classList.add('cell');
-    resultCell3.innerHTML = `1`
-    const resultCell4 = document.createElement('td');
-    resultCell4.classList.add('cell2');
-    resultCell4.innerHTML = `${score}`
-
-
     // appending childrens
     setTimeout(() => main.appendChild(result), 500)
     result.appendChild(resultBoard);
     resultBoard.appendChild(resultRow);
-    resultBoard.appendChild(resultRow2);
     resultRow.appendChild(resultCell);
     resultRow.appendChild(resultCell2);
-    resultRow2.appendChild(resultCell3);
-    resultRow2.appendChild(resultCell4);
 
+    // added result td of child trs
+    if (localStorageAvailable.length < 6)
+        localStorageAvailable.forEach(function (score, index) {
+            const resultRow2 = document.createElement('tr');
+            resultRow2.classList.add('tr2')
+
+            const resultCell3 = document.createElement('td');
+            resultCell3.classList.add('cell');
+            resultCell3.innerHTML = `${index + 1}`
+            const resultCell4 = document.createElement('td');
+            resultCell4.classList.add('cell2');
+            resultCell4.innerHTML = `${score}`
+
+
+            resultBoard.appendChild(resultRow2);
+            resultRow2.appendChild(resultCell3);
+            resultRow2.appendChild(resultCell4);
+        })
 
     // adding play again button 
     const playAgain = document.createElement('button');
@@ -212,13 +229,33 @@ function result(score) {
 
     playAgain.addEventListener('click', () => {
         const removeScoreBoard = document.querySelector('.result')
-        removeScoreBoard.style.display = 'none';
-
+        main.removeChild(removeScoreBoard)
 
         startGame()
-
-
-        // playAgain();
     })
-    result.appendChild(playAgain)
+    result.appendChild(playAgain);
+    const clearBoard = document.createElement('button');
+    clearBoard.classList.add('playAgain');
+    clearBoard.innerHTML = 'Clear ScoreBoard';
+
+
+    clearBoard.addEventListener('click', () => {
+        const removeScores = document.querySelectorAll('.tr2');
+        removeScores.forEach((scores) => {
+            resultBoard.removeChild(scores)
+
+        })
+        localStorage.clear();
+    })
+    result.appendChild(clearBoard);
+}
+// *********setting local storage **********
+function checkingLocalStorage() {
+    let scores;
+    if (localStorage.getItem('result')) {
+        scores = JSON.parse(localStorage.getItem('result'))
+    } else {
+        scores = []
+    }
+    return scores;
 }

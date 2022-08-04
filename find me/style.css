@@ -18,7 +18,7 @@ nav {
     top: 0;
     width: 100%;
     z-index: 1;
-    
+
 }
 
 main {
@@ -132,7 +132,7 @@ main {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-.curved-shape { 
+.curved-shape {
     width: 700px;
     height: 500px;
     background-color: rgb(255, 34, 0);
@@ -140,21 +140,11 @@ main {
     border-radius: 50%;
     position: absolute;
     transform: scale(4);
-    animation: curved 3s ease-in-out 1;
-     top: 900px;
+    top: 900px;
 }
 
-@keyframes curved {
-    0% {
-        top: 1500px;
 
-    }
 
-    100% {
-        top: 900px;
-
-    }
-}
 @keyframes curvedRemoved {
     0% {
         top: 900px;
@@ -166,6 +156,7 @@ main {
 
     }
 }
+
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -205,22 +196,25 @@ main {
     z-index: 3;
 }
 
-.game-info{
+.game-info {
     position: absolute;
     bottom: 130px;
     width: 300px;
     left: 50px;
     font-size: 1.3rem;
     letter-spacing: 2px;
-    height: auto;text-align: center;
+    height: auto;
+    text-align: center;
     color: white;
     padding: 1rem 1.5rem;
     background-color: #dc0c21;
-border-radius: 10px 50px 10px 50px;
-z-index: 5;  text-transform: uppercase;
-box-shadow: 0 0 20px white;
+    border-radius: 10px 50px 10px 50px;
+    z-index: 5;
+    text-transform: uppercase;
+    box-shadow: 0 0 20px white;
 }
-.game-info button{
+
+.game-info button {
     background-color: transparent;
     padding: 0.3rem 1rem;
     color: white;
@@ -228,27 +222,33 @@ box-shadow: 0 0 20px white;
     border: 2px solid white;
     border-radius: 5px;
     margin-top: 25px;
-  
+
 }
-.game-info button:hover{
+
+.game-info button:hover {
     cursor: pointer;
     background-color: white;
     color: #dc0c21;
     transition: 0.5s;
     border: 2px solid #79d714;
 }
+
 .result {
-    z-index:5;
+    
+    z-index: 5;
     width: 350px;
-    height: 400px;
+    max-height: 430px;
     background-color: #9fe256;
     border-radius: 30px;
     position: absolute;
-    bottom: 50px;
-    box-shadow: 0 0 20px #84ff00;
+    bottom: 150px;
+    box-shadow: 0 0 10px #84ff00;
     animation: curved 0.5s ease-in-out 1;
-
+    text-align: center;
+    display: flex;
+    flex-direction: column;
 }
+
 @keyframes curved {
     0% {
         bottom: -400px;
@@ -256,18 +256,21 @@ box-shadow: 0 0 20px white;
     }
 
     100% {
-        bottom: 50px;
+        bottom: 150px;
 
     }
 }
-.result-board{
-    padding:1rem 1rem ;
+
+.result-board {
+    padding: 1rem 1rem;
     text-align: center;
     font-size: 2rem;
     font-style: italic;
     letter-spacing: 2px;
+    overflow:hidden ;
 }
-.tr{
+
+.tr {
     background-color: #dc0c21;
     margin: 20px auto auto auto;
     padding: 0.3rem 0.5rem;
@@ -277,14 +280,50 @@ box-shadow: 0 0 20px white;
     color: rgba(255, 255, 255, 0.872);
     justify-content: space-between;
 }
-.tr2{
+
+.tr2 {
     font-weight: bolder;
     font-size: 1.2rem;
-    margin: 1rem auto 1rem auto ;
+    margin: 1rem auto 1rem auto;
     width: 220px;
     padding: 0.3rem 2rem;
     border-radius: 10px;
     background-color: #dc0c213e;
     display: flex;
     justify-content: space-between;
+}
+.playAgain{
+    
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 0.5rem 2rem;
+    color: white;
+    font-weight: bolder;
+    margin-bottom: 20px;
+}
+.playAgain:nth-child(2){
+    width: 150px;
+    margin: auto;
+}
+.playAgain:nth-child(3){
+
+    width: 200px;
+    margin: 10px auto;
+}
+.playAgain:hover{
+    background-color: white;
+    transition: 0.5s;
+    color: #9fe256;
+}
+.highest-score{
+    position: absolute;
+    top: 80px;
+    right: 5vw;
+    background-color: #011321;
+    z-index: 7;
+    color: rgb(20, 255, 20);
+    letter-spacing: 2px;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
 }
