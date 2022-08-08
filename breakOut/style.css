@@ -1,0 +1,79 @@
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+nav {
+    display: flex;
+    letter-spacing: 2px;
+    width: 100%;
+    font-size: 1.3rem;
+    background-color: rgb(2, 13, 27);
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    color: rgb(74, 255, 8);
+    position: fixed;
+    top: 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.559);
+}
+
+main {
+    overflow: hidden;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(27, 31, 35);
+}
+
+.start-h2 {
+    font-size: 3rem;
+    color: gold;
+    margin-bottom: 70px;
+}
+
+.start-Btn {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    border-color: gold;
+    color: gold;
+    font-weight: bolder;
+}
+
+.start-Btn:hover {
+    color: rgb(27, 31, 35);
+    background-color: gold;
+    transition: 0.5s;
+}
+
+.div-block {
+
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgb(27, 31, 35) inset;
+    width: 70%;
+    height: 80vh;
+    position: absolute;
+    bottom: 20;
+    background-color: rgb(18, 234, 234);
+}
+
+.user-block {
+    width: 140px;
+    border-radius: 5px;
+    height: 20px;
+    position: absolute;
+    background-color: rgb(12, 12, 50);
+    box-shadow: 0 0 10px rgba(0, 0, 255, 0.217);
+}
+.ball{
+    width : 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: absolute;
+    background: rgb(27, 31, 35);
+}
