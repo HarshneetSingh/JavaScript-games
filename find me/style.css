@@ -179,7 +179,7 @@ main {
 .grid-item-bug {
 
     z-index: 4;
-    background-image: url("/find me/img/bug.png");
+    background-image: url("img/bug.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

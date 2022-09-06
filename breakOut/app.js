@@ -1,6 +1,14 @@
+"use strict";
+
 // *********elements from html********
+
+
 const main = document.querySelector('main');
 
+// ********* ELEMENTS OF divBlock ********
+
+let divblockWidth=950;
+let divblockHeight=550;
 // ********* elements for userBlock******
 
 let userblock = [680, 36]
@@ -9,8 +17,9 @@ let currentPosition = userblock;
 // ********** elements for ball*********
 let ball = [740, 56]
 let ballCurrentPosition = ball;
-let xDirection = -4
-let yDirection = 2
+let xDirection = 2;
+let yDirection = 2;
+let ballDiameter=20 // ball width +height /2
 let interval 
 // ? ************** event listeners ****************************
 
@@ -97,7 +106,6 @@ function userMove(e) {
     const block = document.querySelector('.user-block');
     const divBlock = document.querySelector(".div-block");
     const divBlockBhedBhaw = divBlock.getBoundingClientRect();
-    console.log(divBlockBhedBhaw.top)
     switch (e.key) {
         case 'ArrowLeft':
             if (currentPosition[0] > divBlockBhedBhaw.left) {
@@ -122,20 +130,47 @@ function userMove(e) {
 
 // ******* ball direction change *******
 
-// function changeDirection() {
-//     if (xDirection === 2 && yDirection === 2) {
-//         yDirection = -2;
-//         // return 
-//     }
-// }
+function changeDirection() {
+    if (xDirection === 2 && yDirection === 2) {
+       yDirection = -2;
+       return 
+    }
+    if (xDirection === 2 && yDirection === -2) {
+         xDirection =-2;
+        return
+    }
+    if (xDirection === -2 && yDirection === -2) {
+       return yDirection=2;
+        
+    }
+    if (xDirection=== -2 && yDirection === 2) {
+        xDirection=2
+        return
+    }
+}
 
 //************ collision detection *******
 
 function collsionDetected() {
     const divBlock = document.querySelector(".div-block");
     const divBlockBhedBhaw = divBlock.getBoundingClientRect();
-    const divTop=divBlockBhedBhaw.left
-    if (ballCurrentPosition[1]=== divTop) {
-         clearInterval(interval);        
+    const divRight=divBlockBhedBhaw.right
+    const divTop=divBlockBhedBhaw.top
+    const divBottom=divBlockBhedBhaw.bottom
+    const divLeft=divBlockBhedBhaw.left
+
+
+
+    //1) here ball currentPosition is 740 and we're saying ki agr ball ki position container ke end position se
+    //  zayada hoti hai toh change direction and were minusing this ball diameter as ki andr aaye ball
+
+    // 2)checking for top here we're minusing divbottom as it includes top distance plus container height accorfing 
+    // to get boudingclient rect 
+    if (ballCurrentPosition[0]>= (divRight-ballDiameter-10) || ballCurrentPosition[1]>= (divBottom-divTop-10) || ballCurrentPosition[0]<= divLeft) {
+        changeDirection()
+    }
+
+    if (ballCurrentPosition[1]<= 20) {
+        clearInterval(interval)
     }
 }

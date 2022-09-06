@@ -52,11 +52,11 @@ main {
 }
 
 .div-block {
-
+    overflow: hidden;
     border-radius: 20px;
     box-shadow: 0 0 40px rgb(27, 31, 35) inset;
-    width: 70%;
-    height: 80vh;
+    width: 950px;
+    height: 550px;
     position: absolute;
     bottom: 20;
     background-color: rgb(18, 234, 234);
